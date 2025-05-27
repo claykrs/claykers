@@ -6,17 +6,25 @@
 </head>
 <body>
   <h2 id="shags">0 body count</h2>
+  <h1 id="idle">0 shags/s</h2>
   <button id="getShagged">+0 shags</button>
   <script>
     let shags = 0
     let totalShags = 0
     let shagsPerClick = 1
-        
-    const getShagged = document.getElementById("getShagged")
+    let shagsPerSecond = 0
+
+    let upgrades = {
+      "maddie robinson": [1, "spc"]
+    }
+
     const shagsT = document.getElementById("shags")
-    getShagged.textContent = "+" + shagsPerClick + " shags"
+    const idleT = document.getElementById("idle")
+        
+    const shag = document.getElementById("getShagged")
+    shag.textContent = "+" + shagsPerClick + " shags"
             
-    getShagged.onclick = function() {
+    shag.onclick = function() {
       shags += shagsPerClick
       totalShags += shagsPerClick
         
