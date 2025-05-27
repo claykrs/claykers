@@ -148,7 +148,7 @@
       button.id = name
       button.innerHTML = 
         name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
-        "+" + value + " shags per " + type +
+        "+" + format(value) " shags per " + type +
         "<br>" + "cost " + format(price) + " shags";
       upgradesContainer.appendChild(button)
 
@@ -156,7 +156,7 @@
           button.disabled = true 
           button.innerHTML = 
             name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
-            "+" + value + " shags per " + type +
+            "+" + format(value) " shags per " + type +
             "<br>" + "cost " + format(price) + " shags";
       }
 
@@ -172,7 +172,7 @@
 
            button.innerHTML = 
             name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
-            "+" + value + " shags per " + type +
+            "+" + format(value) " shags per " + type +
             "<br>" + "cost " + format(price) + " shags";
 
           if (upgrades[name][4] >= max) {
