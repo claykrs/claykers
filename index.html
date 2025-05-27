@@ -23,13 +23,13 @@
     const idleT = document.getElementById("idle")
         
     const shag = document.getElementById("getShagged")
-    shag.textContent = `[ +{shagsPerClick} shags ]`
+    shag.textContent = "[ +" + shagsPerClick + "shags ]"
             
     shag.onclick = function() {
       shags += shagsPerClick
       totalShags += shagsPerClick
         
-      shagsT.textContent = `{shags} shags`
+      shagsT.textContent = shags + " shags"
     }
       
     for (let name in upgrades) {
@@ -38,7 +38,7 @@
       let button = document.createElement("button")
      
       button.id = name
-      button.textContent = `+{value} per {type}`
+      button.textContent = "+" + value + " per " + type
       document.body.appendChild(button)
     }
   </script>
