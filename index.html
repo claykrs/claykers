@@ -16,7 +16,7 @@
     let shagsPerSecond = 0
 
     let upgrades = {
-      "maddie robinson": [1, "click"]
+      "maddie robinson": [100, 1, "click"]
     }
 
     const shagsT = document.getElementById("shags")
@@ -33,13 +33,25 @@
     }
       
     for (let name in upgrades) {
-      let value = upgrades[name][0]
-      let type = upgrades[name][1]
+      let price = upgrades[name][0]
+      let value = upgrades[name][1]
+      let type = upgrades[name][2]
       let button = document.createElement("button")
      
       button.id = name
-      button.textContent = "+" + value + " shags per " + type
+      button.textContent = "+" + value + " shags per " + type + "\n-" + price + " shags"
       document.body.appendChild(button)
+
+      button.onclick = function() {
+        if (shags >= price) {
+          shags -= price
+          if (type == "click") {
+            shagsPerClick += value
+          } else {
+            shagsPerSecond += value
+          }
+        }        
+      }
     }
   </script>
 </body>
