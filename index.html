@@ -117,6 +117,10 @@
             name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
             "+" + value + " shags per " + type +
             "<br>" + "-" + format(price) + " shags";
+
+          if (upgrades[name][4] >= max) {
+            button.disabled = true
+          }
           
           if (type == "click") {
             shagsPerClick += value
