@@ -42,7 +42,7 @@
   </style>
 </head>
 <body>
-  <div id="version-label">v0.4.4</div>
+  <div id="version-label">v0.5</div>
   
   <h1 id="shags">0 shags</h1>
   <h3 id="idle">0 shags/s</h3>
@@ -152,6 +152,14 @@
         "<br>" + "cost " + format(price) + " shags";
       upgradesContainer.appendChild(button)
 
+       if (upgrades[name][4] >= max) {
+          button.disabled = true 
+          button.innerHTML = 
+            name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
+            "+" + value + " shags per " + type +
+            "<br>" + "cost " + format(price) + " shags";
+      }
+
       button.onclick = function() {
         if (shags >= price) {
           if (upgrades[name][4] >= max) {
@@ -169,11 +177,6 @@
 
           if (upgrades[name][4] >= max) {
             button.disabled = true
-            
-            button.innerHTML = 
-              name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
-              "+" + value + " shags per " + type +
-              "<br>" + "cost " + format(price) + " shags";
           }
           
           if (type == "click") {
