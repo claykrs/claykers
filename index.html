@@ -5,9 +5,10 @@
   <title>clay's shag clicker</title>
 </head>
 <body>
-  <h2 id="shags">0 body count</h2>
+  <h2 id="shags">0 shags</h2>
   <h1 id="idle">0 shags/s</h2>
   <button id="getShagged">+0 shags</button>
+  
   <script>
     let shags = 0
     let totalShags = 0
@@ -15,20 +16,30 @@
     let shagsPerSecond = 0
 
     let upgrades = {
-      "maddie robinson": [1, "spc"]
+      "maddie robinson": [1, "click"]
     }
 
     const shagsT = document.getElementById("shags")
     const idleT = document.getElementById("idle")
         
     const shag = document.getElementById("getShagged")
-    shag.textContent = "+" + shagsPerClick + " shags"
+    shag.textContent = `[ +{shagsPerClick} shags ]`
             
     shag.onclick = function() {
       shags += shagsPerClick
       totalShags += shagsPerClick
         
-      shagsT.textContent = shags + " body count"
+      shagsT.textContent = `{shags} shags`
+    }
+      
+    for (let name in upgrades) {
+      let value = upgrades[name][0]
+      let type = upgrades[name][1]
+      let button = document.createElement("button")
+     
+      button.id = name
+      button.textContent = `+{value} per {type}`
+      document.body.appendChild(button)
     }
   </script>
 </body>
