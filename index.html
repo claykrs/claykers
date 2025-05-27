@@ -55,9 +55,10 @@
     let shagsPerSecond = 0
 
     let upgrades = {
-      "maddie robinson": [100, 1, "second", 0],
-      "shagmeter [<-o------>]": [650, 5, "second", 0],
-      "original shag -- meadows": [4E3, 30, "second", 0]
+      "maddie robinson": [100, 1, "second", 100, 0],
+      "brady alcahall": [150, 1/2, "click", 10, 0],
+      "shagmeter [<-o------>]": [650, 5, "second", 100, 0],
+      "original shag -- meadows": [4E3, 30, "second", 100, 0]
     }
 
     const shagsT = document.getElementById("shags")
@@ -81,7 +82,7 @@
      
       button.id = name
       button.innerHTML = 
-          name + " (0)" +"<br>" + 
+          name + " (0/" + upgrades[name][3] + ") +"<br>" + 
           "+" + value + " shags per " + type +
           "<br>" + "-" + format(price) + " shags";
       upgradesContainer.appendChild(button)
@@ -92,7 +93,7 @@
           upgrades[name][3] += 1
 
           button.innerHTML = 
-            name + " (" + upgrades[name][3] + ")" +"<br>" + 
+            name + " (" + upgrades[name][4] + "/" + upgrades[name][3] ")" +"<br>" + 
             "+" + value + " shags per " + type +
             "<br>" + "-" + format(price) + " shags";
           
