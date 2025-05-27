@@ -20,10 +20,34 @@
   <h3 id="idle">0 shags/s</h3>
   <button id="getShagged">+0 shags</button>
   
-  <script>
+  <script>    
     function format(n) {
-      return n.toFixed(2)
+      const suffixes = ['', 'K', 'M', 'B', 'T']
+      const abs = Math.abs(n)
+    
+      if (abs >= 1000 && abs < 100000) {
+        return n.toLocaleString()
+      }
+    
+      if (abs >= 100000) {
+        let i = 0;
+        let value = n;
+    
+        while (Math.abs(value) >= 1000 && i < suffixes.length - 1) {
+          value /= 1000;
+          i++;
+        }
+    
+        let formatted = value.toFixed(2)
+        formatted = formatted.replace(/\.00$/, '')
+        formatted = formatted.replace(/(\.\d)0$/, '$1')
+    
+        return formatted + suffixes[i];
+      }
+    
+      return n.toString();
     }
+
     
     let shags = 0
     let totalShags = 0
