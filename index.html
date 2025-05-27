@@ -21,6 +21,10 @@
   <button id="getShagged">+0 shags</button>
   
   <script>
+    function format(n) {
+      return n.toFixed(2)
+    }
+    
     let shags = 0
     let totalShags = 0
     let shagsPerClick = 1
@@ -76,7 +80,7 @@
     }
 
     setInterval(() => {
-      shagsT.textContent = shags + " shags"
+      shagsT.textContent = format(shags) + " shags"
       shag.textContent = "[ +" + shagsPerClick + " shags ]"
       
       if (shagsPerSecond > 0) {
