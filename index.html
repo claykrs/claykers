@@ -22,7 +22,7 @@
   
   <script>    
    function format(n) {
-      const suffixes = ['', 'K', 'M', 'B', 'T'];
+      const suffixes = ['', 'k', 'm', 'b', 't'];
       const abs = Math.abs(n);
     
       if (abs >= 1000 && abs < 100000) {
@@ -43,7 +43,7 @@
         const isWhole = Number.isInteger(value);
         let formatted = value.toFixed(isWhole ? 0 : 2);
     
-        return formatted + suffixes[i];
+        return formatted + " " + suffixes[i];
       }
     
       return Number.isInteger(n) ? n.toString() : n.toFixed(2);
