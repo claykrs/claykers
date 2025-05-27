@@ -84,24 +84,25 @@
      
       button.id = name
       button.innerHTML = 
-          name + " (0/" + max + ") + "<br>" + 
-          "+" + value + " shags per " + type +
-          "<br>" + "-" + format(price) + " shags";
+        name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
+        "+" + value + " shags per " + type +
+        "<br>" + "-" + format(price) + " shags";
       upgradesContainer.appendChild(button)
 
       button.onclick = function() {
         if (shags >= price) {
           if (upgrades[name][4] >= max) {
+            button.disabled = true
             return
           }
           
           shags -= price
           upgrades[name][4] += 1
 
-          button.innerHTML = 
-          name + " (" + upgrades[name][4] + "/" + max + ") + "<br>" + 
-          "+" + value + " shags per " + type +
-          "<br>" + "-" + format(price) + " shags";
+           button.innerHTML = 
+            name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
+            "+" + value + " shags per " + type +
+            "<br>" + "-" + format(price) + " shags";
           
           if (type == "click") {
             shagsPerClick += value
