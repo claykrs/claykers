@@ -195,17 +195,19 @@
         let owned = upgrades[name][4]
       
         let button = document.getElementById(name)
-       if (owned >= max) {
-         let html = 
-           name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
-          "+" + format(value) + " shags per " + type +
-          "<br>" + "cost " + format(price) + " shags";
+        if (owned >= max) {
+          let html = 
+            name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
+            "+" + format(value) + " shags per " + type +
+            "<br>" + "cost " + format(price) + " shags";
 
-         if (button.innerHTML != html) {
-            button.innerHTML = html
-         } 
-         button.disabled = true
-       }
+           if (button.innerHTML != html) {
+              button.innerHTML = html
+           } 
+          
+          button.disabled = true
+        }
+      }
         
       saveData()
     }, 1000 / 30)
