@@ -152,14 +152,6 @@
         "<br>" + "cost " + format(price) + " shags";
       upgradesContainer.appendChild(button)
 
-       if (upgrades[name][4] >= max) {
-          button.disabled = true 
-          button.innerHTML = 
-            name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
-            "+" + format(value) " shags per " + type +
-            "<br>" + "cost " + format(price) + " shags";
-      }
-
       button.onclick = function() {
         if (shags >= price) {
           if (upgrades[name][4] >= max) {
