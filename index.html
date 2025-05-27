@@ -83,12 +83,13 @@
     let shagsPerSecond = 0
 
     let upgrades = {
-      // name: [price, increment, type, max, owned]
-      
       "maddie robinson": [100, 1, "second", 100, 0],
       "brady alcahall": [150, 0.5, "click", 10, 0],
       "shagmeter [<-o------>]": [650, 5, "second", 100, 0],
-      "original shag -- meadows": [4E3, 30, "second", 100, 0]
+      "original shag -- meadows": [4E3, 30, "second", 100, 0],
+      "rylie take a peek": [1.6E4, 100, "second", 100, 0],
+      "tristan cheat on maria prob": [1E5, 600, "second", 100, 0],
+      "cameron hamilton 400lb": [1.2E6, 6000, "second", 100, 0]
     }
 
     const shagsT = document.getElementById("shags")
@@ -98,12 +99,43 @@
     const upgradesContainer = document.createElement("div")
     upgradesContainer.id = "upgrades-container"
     document.body.appendChild(upgradesContainer)
-            
+
+    function loadData() {
+      const cookieData = document.cookie.split('; ').find(row => row.startsWith('shagData='));
+      if (cookieData) {
+        const data = JSON.parse(cookieData.split('=')[1]);
+        if (data) {
+          shags = data.shags || 0;
+          totalShags = data.totalShags || 0;
+          shagsPerClick = data.shagsPerClick || 1;
+          shagsPerSecond = data.shagsPerSecond || 0;
+          for (let name in upgrades) {
+            upgrades[name][4] = data.upgrades[name] || 0;
+          }
+        }
+      }
+    }
+
+    function saveData() {
+      const data = {
+        shags,
+        totalShags,
+        shagsPerClick,
+        shagsPerSecond,
+        upgrades: {}
+      };
+      for (let name in upgrades) {
+        data.upgrades[name] = upgrades[name][4];
+      }
+      document.cookie = "shagData=" + JSON.stringify(data) + "; path=/; max-age=31536000"; 
+    }
+    
     shag.onclick = function() {
       shags += shagsPerClick
       totalShags += shagsPerClick
+      saveData()
     }
-      
+
     for (let name in upgrades) {
       let price = upgrades[name][0]
       let value = upgrades[name][1]
@@ -143,6 +175,7 @@
           } else {
             shagsPerSecond += value
           }
+          saveData()
         }        
       }
     }
@@ -166,6 +199,8 @@
         lastUpdateTime = Date.now()
       }
     });
+
+    loadData()
   </script>
 </body>
 </html>
