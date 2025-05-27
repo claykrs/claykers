@@ -5,8 +5,8 @@
   <title>clay's shag clicker</title>
 </head>
 <body>
-  <h2 id="shags">0 shags</h2>
-  <h1 id="idle">0 shags/s</h2>
+  <h1 id="shags">0 shags</h2>
+  <h2 id="idle">0 shags/s</h2>
   <button id="getShagged">+0 shags</button>
   
   <script>
@@ -23,7 +23,7 @@
     const idleT = document.getElementById("idle")
         
     const shag = document.getElementById("getShagged")
-    shag.textContent = "[ +" + shagsPerClick + "shags ]"
+    shag.textContent = "[ +" + shagsPerClick + " shags ]"
             
     shag.onclick = function() {
       shags += shagsPerClick
