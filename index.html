@@ -20,16 +20,12 @@
     }
 
     const shagsT = document.getElementById("shags")
-    const idleT = document.getElementById("idle")
-        
+    const idleT = document.getElementById("idle")        
     const shag = document.getElementById("getShagged")
-    shag.textContent = "[ +" + shagsPerClick + " shags ]"
             
     shag.onclick = function() {
       shags += shagsPerClick
       totalShags += shagsPerClick
-        
-      shagsT.textContent = shags + " shags"
     }
       
     for (let name in upgrades) {
@@ -39,7 +35,10 @@
       let button = document.createElement("button")
      
       button.id = name
-      button.textContent = "+" + value + " shags per " + type + "\n-" + price + " shags"
+      button.innerHTML = 
+          name + "<br>" + 
+          "+" + value + " shags per " + type +
+          "<br>" + "-" + price + " shags"
       document.body.appendChild(button)
 
       button.onclick = function() {
@@ -52,6 +51,11 @@
           }
         }        
       }
+    }
+
+    while (true) {
+      shagsT.textContent = shags + " shags"
+      shag.textContent = "[ +" + shagsPerClick + " shags ]"
     }
   </script>
 </body>
