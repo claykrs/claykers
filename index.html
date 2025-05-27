@@ -3,10 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>clay's shag clicker</title>
+  <style>
+    #upgrades-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 250px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  </style>
 </head>
 <body>
-  <h1 id="shags">0 shags</h2>
-  <h3 id="idle">0 shags/s</h2>
+  <h1 id="shags">0 shags</h1>
+  <h3 id="idle">0 shags/s</h3>
   <button id="getShagged">+0 shags</button>
   
   <script>
@@ -22,6 +33,10 @@
     const shagsT = document.getElementById("shags")
     const idleT = document.getElementById("idle")        
     const shag = document.getElementById("getShagged")
+
+    const upgradesContainer = document.createElement("div")
+    upgradesContainer.id = "upgrades-container"
+    document.body.appendChild(upgradesContainer)
             
     shag.onclick = function() {
       shags += shagsPerClick
@@ -36,10 +51,10 @@
      
       button.id = name
       button.innerHTML = 
-          name + "(0)" +"<br>" + 
+          name + " (0)" +"<br>" + 
           "+" + value + " shags per " + type +
           "<br>" + "-" + price + " shags";
-      document.body.appendChild(button)
+      upgradesContainer.appendChild(button)
 
       button.onclick = function() {
         if (shags >= price) {
@@ -47,7 +62,7 @@
           upgrades[name][3] += 1
 
           button.innerHTML = 
-            name + "(" + upgrades[name][3] + ")" +"<br>" + 
+            name + " (" + upgrades[name][3] + ")" +"<br>" + 
             "+" + value + " shags per " + type +
             "<br>" + "-" + price + " shags";
           
