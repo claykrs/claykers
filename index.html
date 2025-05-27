@@ -27,7 +27,7 @@
     let shagsPerSecond = 0
 
     let upgrades = {
-      "maddie robinson": [100, 1, "click", 0]
+      "maddie robinson": [100, 1, "second", 0]
     }
 
     const shagsT = document.getElementById("shags")
@@ -78,6 +78,10 @@
     setInterval(() => {
       shagsT.textContent = shags + " shags"
       shag.textContent = "[ +" + shagsPerClick + " shags ]"
+      
+      if (shagsPerSecond > 0) {
+        shags += (shagsPerSecond / 100)
+      }
     }, 10)
   </script>
 </body>
