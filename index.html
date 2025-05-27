@@ -6,17 +6,21 @@
 </head>
 <body>
   <button id="getScore">click</button>
+  <h2 id="score">0 score</h2>
+  
   <script>
     let score = 0
     let totalScore = 0
     let scorePerClick = 1
 
     const getScore = document.getElementById("getScore")
+    const scoreT = document.getElementById("score")
+    
     getScore.onclick = function() {
       score += scorePerClick
       totalScore += scorePerClick
 
-      document.title = score + " score"
+      scoreT.textContent = score + " score"
     }
   </script>
 </body>
