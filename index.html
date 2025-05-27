@@ -78,18 +78,20 @@
       let price = upgrades[name][0]
       let value = upgrades[name][1]
       let type = upgrades[name][2]
+      let max = upgrades[name][3]
+      
       let button = document.createElement("button")
      
       button.id = name
       button.innerHTML = 
-          name + " (0/" + upgrades[name][3] + ") +"<br>" + 
+          name + " (0/" + max + ") + "<br>" + 
           "+" + value + " shags per " + type +
           "<br>" + "-" + format(price) + " shags";
       upgradesContainer.appendChild(button)
 
       button.onclick = function() {
         if (shags >= price) {
-          if (upgrades[name][4] >= upgrades[name][3]) {
+          if (upgrades[name][4] >= max) {
             return
           }
           
@@ -97,9 +99,9 @@
           upgrades[name][4] += 1
 
           button.innerHTML = 
-            name + " (" + upgrades[name][4] + "/" + upgrades[name][3] + ")" + "<br>" + 
-            "+" + value + " shags per " + type +
-            "<br>" + "-" + format(price) + " shags";
+          name + " (" + upgrades[name][4] + "/" + max + ") + "<br>" + 
+          "+" + value + " shags per " + type +
+          "<br>" + "-" + format(price) + " shags";
           
           if (type == "click") {
             shagsPerClick += value
