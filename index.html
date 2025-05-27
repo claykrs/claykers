@@ -21,12 +21,14 @@
   <button id="getShagged">+0 shags</button>
   
   <script>    
-    function format(n) {
-      const suffixes = ['', 'K', 'M', 'B', 'T']
-      const abs = Math.abs(n)
+   function format(n) {
+      const suffixes = ['', 'K', 'M', 'B', 'T'];
+      const abs = Math.abs(n);
     
       if (abs >= 1000 && abs < 100000) {
-        return n.toLocaleString()
+        return n.toLocaleString(undefined, {
+          maximumFractionDigits: Number.isInteger(n) ? 0 : 2
+        });
       }
     
       if (abs >= 100000) {
@@ -38,16 +40,14 @@
           i++;
         }
     
-        let formatted = value.toFixed(2)
-        formatted = formatted.replace(/\.00$/, '')
-        formatted = formatted.replace(/(\.\d)0$/, '$1')
+        const isWhole = Number.isInteger(value);
+        let formatted = value.toFixed(isWhole ? 0 : 2);
     
         return formatted + suffixes[i];
       }
     
-      return n.toString();
+      return Number.isInteger(n) ? n.toString() : n.toFixed(2);
     }
-
     
     let shags = 0
     let totalShags = 0
@@ -55,7 +55,9 @@
     let shagsPerSecond = 0
 
     let upgrades = {
-      "maddie robinson": [100, 1, "second", 0]
+      "maddie robinson": [100, 1, "second", 0],
+      "shagmeter [<-o------>]": [650, 5, "second", 0],
+      "original shag -- meadows": [4E3, 30, "second", 0]
     }
 
     const shagsT = document.getElementById("shags")
@@ -105,7 +107,8 @@
 
     setInterval(() => {
       shagsT.textContent = format(shags) + " shags"
-      shag.textContent = "[ +" + shagsPerClick + " shags ]"
+      shag.textContent = "[ +" + format(shagsPerClick) + " shags ]"
+      idleT.textContent = format(shagsPerSecond) + " shags/s"
       
       if (shagsPerSecond > 0) {
         shags += (shagsPerSecond / 100)
