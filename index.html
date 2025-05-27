@@ -69,6 +69,8 @@
     let shagsPerSecond = 0
 
     let upgrades = {
+      // name: [price, increment, type, max, owned]
+      
       "maddie robinson": [100, 1, "second", 100, 0],
       "brady alcahall": [150, 0.5, "click", 10, 0],
       "shagmeter [<-o------>]": [650, 5, "second", 100, 0],
@@ -131,15 +133,25 @@
       }
     }
 
+    let lastUpdateTime = Date.now();
+
     setInterval(() => {
-      shagsT.textContent = format(shags) + " shags"
-      shag.textContent = "[ +" + format(shagsPerClick) + " shags ]"
-      idleT.textContent = format(shagsPerSecond) + " shags/s"
-      
-      if (shagsPerSecond > 0) {
-        shags += (shagsPerSecond / 100)
+      const now = Date.now();
+      const deltaSeconds = (now - lastUpdateTime) / 1000;
+    
+      shags += shagsPerSecond * deltaSeconds;
+      lastUpdateTime = now;
+    
+      shagsT.textContent = format(shags) + " shags";
+      shag.textContent = "[ +" + format(shagsPerClick) + " shags ]";
+      idleT.textContent = format(shagsPerSecond) + " shags/s";
+    }, 1000 / 30)
+    
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        lastUpdateTime = Date.now()
       }
-    }, 10)
+    });
   </script>
 </body>
 </html>
