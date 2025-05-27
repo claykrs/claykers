@@ -153,15 +153,6 @@
       upgradesContainer.appendChild(button)
 
       button.onclick = function() {
-        if (upgrades[name][4] >= max) {
-          button.disabled = true
-        }
-        
-        button.innerHTML = 
-            name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
-            "+" + format(value) + " shags per " + type +
-            "<br>" + "cost " + format(price) + " shags";
-        
         if (shags >= price) {
           if (upgrades[name][4] >= max) {
             return
@@ -199,6 +190,23 @@
       shag.textContent = "[ +" + format(shagsPerClick) + " shags ]";
       idleT.textContent = format(shagsPerSecond) + " shags/s";
 
+      for (let name in upgrades) {
+        let max = upgrades[name][3]
+        let owned = upgrades[name][4]
+      
+        let button = document.getElementById(name)
+       if (owned >= max) {
+         let html = 
+           name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
+          "+" + format(value) + " shags per " + type +
+          "<br>" + "cost " + format(price) + " shags";
+
+         if (button.innerHTML != html) {
+            button.innerHTML = html
+         } 
+         button.disabled = true
+       }
+        
       saveData()
     }, 1000 / 30)
     
