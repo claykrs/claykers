@@ -83,7 +83,7 @@
       button.innerHTML = 
           name + " (0)" +"<br>" + 
           "+" + value + " shags per " + type +
-          "<br>" + "-" + price + " shags";
+          "<br>" + "-" + format(price) + " shags";
       upgradesContainer.appendChild(button)
 
       button.onclick = function() {
@@ -94,7 +94,7 @@
           button.innerHTML = 
             name + " (" + upgrades[name][3] + ")" +"<br>" + 
             "+" + value + " shags per " + type +
-            "<br>" + "-" + price + " shags";
+            "<br>" + "-" + format(price) + " shags";
           
           if (type == "click") {
             shagsPerClick += value
