@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+gggggggggg<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,7 +6,7 @@
 </head>
 <body>
   <h2 id="score">0 score</h2>
-  <button id="getScore">click</button>
+  <button id="getScore">+0 score</button>
   <script>
     let score = 0
     let totalScore = 0
@@ -14,6 +14,7 @@
         
     const getScore = document.getElementById("getScore")
     const scoreT = document.getElementById("score")
+    getScore.textContent = scorePerClick + " score"
             
     getScore.onclick = function() {
       score += scorePerClick
