@@ -148,7 +148,7 @@
       button.id = name
       button.innerHTML = 
         name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
-        "+" + format(value) " shags per " + type +
+        "+" + format(value) + " shags per " + type +
         "<br>" + "cost " + format(price) + " shags";
       upgradesContainer.appendChild(button)
 
@@ -156,14 +156,14 @@
         if (upgrades[name][4] >= max) {
           button.disabled = true
         }
+        
         button.innerHTML = 
             name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
-            "+" + format(value) " shags per " + type +
+            "+" + format(value) + " shags per " + type +
             "<br>" + "cost " + format(price) + " shags";
         
         if (shags >= price) {
           if (upgrades[name][4] >= max) {
-            button.disabled = true
             return
           }
           
@@ -172,12 +172,8 @@
 
            button.innerHTML = 
             name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
-            "+" + format(value) " shags per " + type +
+            "+" + format(value) + " shags per " + type +
             "<br>" + "cost " + format(price) + " shags";
-
-          if (upgrades[name][4] >= max) {
-            button.disabled = true 
-          }
           
           if (type == "click") {
             shagsPerClick += value
@@ -202,6 +198,8 @@
       shagsT.textContent = format(shags) + " shags";
       shag.textContent = "[ +" + format(shagsPerClick) + " shags ]";
       idleT.textContent = format(shagsPerSecond) + " shags/s";
+
+      saveData()
     }, 1000 / 30)
     
     document.addEventListener('visibilitychange', () => {
