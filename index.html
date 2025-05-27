@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>clay</title>
+  <title>clay's shag clicker</title>
 </head>
 <body>
-  <h2 id="score">0 score</h2>
-  <button id="getScore">+0 score</button>
+  <h2 id="shags">0 shags</h2>
+  <button id="getShagged">+0 shags</button>
   <script>
-    let score = 0
-    let totalScore = 0
-    let scorePerClick = 1
+    let shags = 0
+    let totalShags = 0
+    let shagsPerClick = 1
         
-    const getScore = document.getElementById("getScore")
-    const scoreT = document.getElementById("score")
-    getScore.textContent = "+" + scorePerClick + " score"
+    const getShagged = document.getElementById("getShagged")
+    const shagsT = document.getElementById("shags")
+    getShagged.textContent = "+" + shagsPerClick + " shags"
             
-    getScore.onclick = function() {
-      score += scorePerClick
-      totalScore += scorePerClick
+    getShagged.onclick = function() {
+      shags += shagsPerClick
+      totalShags += shagsPerClick
         
-      scoreT.textContent = score + " score"
+      shagsT.textContent = shags + " shags"
     }
   </script>
 </body>
