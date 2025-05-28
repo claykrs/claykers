@@ -2,18 +2,29 @@
 
 <html>
     <body>
-        <h3 id="moneyT">$1.23K</h3>
+        <h3 id="moneyT"></h3>
+        <button id="submit"></button>
     </body>
 
     <style>
         #moneyT {
-            margin-top: 2;
-            margin-left: 4;
+            margin-top: 0;
         }
     </style>
 
     <script>
-        const moneyT = document.getElementById("moneyT")
+        let dataStore = {
+            "money": 0
+        }
         
+        const moneyT = document.getElementById("moneyT")
+        const submit = document.getElementById("submit")
+        submit.onclick = function() {
+            dataStore.money += 1
+        }
+
+        setInterval(function() {
+            moneyT.textContent = dataStore.money
+        }, 10)
     </script>
 </html>
