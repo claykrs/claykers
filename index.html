@@ -37,14 +37,12 @@
             ]
         }
 
-        for (let i in data.upgrades) {
-            let upg = data.upgrades[i]
-            
+        data.upgrades.forEach((upg, i) => {
             let button = document.createElement("button")
-            button.textContent = upg.price
-            document.appendChild(button)
-        }
-    
+            button.textContent = `Upgrade ${i}`
+            document.body.appendChild(button)
+        })
+        
         setInterval(function() { idleT += 10
             document.getElementById("yuan").textContent = `${data.yuan} ¥`
             document.getElementById("_idle_output").textContent = 
