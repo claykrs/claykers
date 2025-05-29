@@ -3,7 +3,7 @@
 <html>
     <body>
         <h2 id="yuan">0 ¥</h2>
-        <h4 id="output">+0 ¥/</h4>
+        <h4 id="_idle_output">+0 ¥/</h4>
     </body>
 
     <style>
@@ -26,7 +26,7 @@
                 .textContent = `${data.yuan} ¥`
 
             let idle_rate = (data._idle_rate >= 1000 && "s" || data._idle_rate + "ms")
-            document.getElementById("output")
+            document.getElementById("_idle_output")
                 .textContent = `${data.yuan} ¥/${idle_rate}`
 
             if (idleT >= data._idle_rate) { idleT = 0
