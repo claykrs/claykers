@@ -2,17 +2,23 @@
 
 <html>
     <body>
-        <h2 id="yuan">0 ¥</h2>
-        <h5 id="_idle_output">+0 ¥/</h5>
+        <div style="display: flex; flex-direction: column;">
+            <h2 id="yuan">0 ¥</h2>
+            <h5 id="_idle_output">+0 ¥/s</h5>
+        </div>
     </body>
 
     <style>
         #yuan {
             margin-top: 0;
+            margin-bottom: 4px;
         }
 
         #_idle_output {
             margin-top: 0;
+            color: #aaa;
+            ont-style: italic;
+            font-weight: normal;
         }
     </style>
 
