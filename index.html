@@ -1,224 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>clay's shag clicker</title>
-  <style>
-    #upgrades-container {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 250px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
 
-    #version-label {
-      position: fixed;
-      bottom: 5px;
-      left: 5px;
-      font-size: 10px;
-      color: #666;
-      font-family: Arial, sans-serif;
-      user-select: none;
-      pointer-events: none;
-      opacity: 0.7;
-    }
+<html>
+    <body>
+        <div style="display: flex; flex-direction: column;">
+            <h1 id="yuan">0 ¥</h1>
+            <h3 id="_idle_output">+1 ¥/s</h3>
+        </div>
+    </body>
 
-    body {
-      margin-top: 10px;
-      padding: 0;
-    }
-    
-    #shags {
-      margin-top: 0;      
-      margin-bottom: 4px; 
-    }
-    
-    #idle {
-      margin-top: 0;      
-    }
-  </style>
-</head>
-<body>
-  <div id="version-label">v0.5.5</div>
-  
-  <h1 id="shags">0 shags</h1>
-  <h3 id="idle">0 shags/s</h3>
-  <button id="getShagged">+0 shags</button>
-  
-  <script>    
-   function format(n) {
-      const suffixes = ['', 'k', 'm', 'b', 't'];
-      const abs = Math.abs(n);
-    
-      if (abs >= 1000 && abs < 100000) {
-        return n.toLocaleString(undefined, {
-          maximumFractionDigits: Number.isInteger(n) ? 0 : 2
-        });
-      }
-    
-      if (abs >= 100000) {
-        let i = 0;
-        let value = n;
-    
-        while (Math.abs(value) >= 1000 && i < suffixes.length - 1) {
-          value /= 1000;
-          i++;
+    <style>
+        #yuan {
+            margin-top: 0;
+            margin-bottom: 4px;
         }
-    
-        const isWhole = Number.isInteger(value);
-        let formatted = value.toFixed(isWhole ? 0 : 2);
-    
-        return formatted + " " + suffixes[i];
-      }
-    
-      return Number.isInteger(n) ? n.toString() : n.toFixed(2);
-    }
-    
-    let shags = 0
-    let totalShags = 0
-    let shagsPerClick = 1
-    let shagsPerSecond = 0
 
-    let upgrades = {
-      "alolsfsopdjigsdf": [100, 1, "second", 100, 0],
-      "brady alcahall": [150, 0.5, "click", 10, 0],
-      "shagmeter [<-o------>]": [650, 5, "second", 100, 0],
-      "original shag -- meadows": [4E3, 30, "second", 100, 0],
-      "rylie take a peek": [1.6E4, 100, "second", 100, 0],
-      "tristan cheat on maria prob": [1E5, 600, "second", 100, 0],
-      "cameron hamilton 400lb": [1.2E6, 6000, "second", 100, 0],
-      "brandon poston prob": [1E8, 540000, "second", 100, 0]
-    }
-
-    const shagsT = document.getElementById("shags")
-    const idleT = document.getElementById("idle")        
-    const shag = document.getElementById("getShagged")
-
-    const upgradesContainer = document.createElement("div")
-    upgradesContainer.id = "upgrades-container"
-    document.body.appendChild(upgradesContainer)
-
-    function loadData() {
-      const cookieData = document.cookie.split('; ').find(row => row.startsWith('shagData='));
-      if (cookieData) {
-        const data = JSON.parse(cookieData.split('=')[1]);
-        if (data) {
-          shags = data.shags || 0;
-          totalShags = data.totalShags || 0;
-          shagsPerClick = data.shagsPerClick || 1;
-          shagsPerSecond = data.shagsPerSecond || 0;
-          for (let name in upgrades) {
-            upgrades[name][4] = data.upgrades[name] || 0;
-          }
+        #_idle_output {
+            margin-top: 0;
+            color: #111111;
+            font-style: italic;
+            font-weight: normal;
         }
-      }
-    }
+    </style>
 
-    function saveData() {
-      const data = {
-        shags,
-        totalShags,
-        shagsPerClick,
-        shagsPerSecond,
-        upgrades: {}
-      };
-      for (let name in upgrades) {
-        data.upgrades[name] = upgrades[name][4];
-      }
-      document.cookie = "shagData=" + JSON.stringify(data) + "; path=/; max-age=31536000"; 
-    }
-    
-    shag.onclick = function() {
-      shags += shagsPerClick
-      totalShags += shagsPerClick
-      saveData()
-    }
-
-    for (let name in upgrades) {
-      let price = upgrades[name][0]
-      let value = upgrades[name][1]
-      let type = upgrades[name][2]
-      let max = upgrades[name][3]
-      
-      let button = document.createElement("button")
-     
-      button.id = name
-      button.innerHTML = 
-        name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
-        "+" + format(value) + " shags per " + type +
-        "<br>" + "cost " + format(price) + " shags";
-      upgradesContainer.appendChild(button)
-
-      button.onclick = function() {
-        if (shags >= price) {
-          if (upgrades[name][4] >= max) {
-            return
-          }
-          
-          shags -= price
-          upgrades[name][4] += 1
-
-           button.innerHTML = 
-            name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
-            "+" + format(value) + " shags per " + type +
-            "<br>" + "cost " + format(price) + " shags";
-          
-          if (type == "click") {
-            shagsPerClick += value
-          } else {
-            shagsPerSecond += value
-          }
-          
-          saveData()
-        }        
-      }
-    }
-
-    let lastUpdateTime = Date.now();
-
-    setInterval(() => {
-      const now = Date.now();
-      const deltaSeconds = (now - lastUpdateTime) / 1000;
-    
-      shags += shagsPerSecond * deltaSeconds;
-      lastUpdateTime = now;
-    
-      shagsT.textContent = format(shags) + " shags";
-      shag.textContent = "[ +" + format(shagsPerClick) + " shags ]";
-      idleT.textContent = format(shagsPerSecond) + " shags/s";
-
-      for (let name in upgrades) {
-        let max = upgrades[name][3]
-        let owned = upgrades[name][4]
-      
-        let button = document.getElementById(name)
-        if (owned >= max) {
-          let html = 
-            name + " (" + upgrades[name][4] + "/" + max + ")<br>" +
-            "+" + format(value) + " shags per " + type +
-            "<br>" + "cost " + format(price) + " shags";
-
-           if (button.innerHTML != html) {
-              button.innerHTML = html
-           } 
-          
-          button.disabled = true
-        }
-      }
+    <script>      
+        let active_state
+        let idleT = 0
         
-      saveData()
-    }, 1000 / 30)
-    
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) {
-        lastUpdateTime = Date.now()
-      }
-    });
+        let data = {
+            "yuan": 0,
+            
+            "_idle_output": 1,
+            "_idle_rate": 1000,
 
-    loadData()
-  </script>
-</body>
+            "upgrades": [
+                {"price": 100, "owned": [0, 100], "value": [1, "_idle_output"]}
+            ]
+        }
+
+        function name(k) {
+            return (k == "_idle_output"
+                    && "¥/step" || "")
+        }
+
+        data.upgrades.forEach((upg, i) => {
+            let button = document.createElement("button")
+            button.innerHTML = `upgrade ${i} (${upg.owned[0]})`
+                + `<br>+${upg.value[0]} ${name(upg.value[1])}`
+                  +`<br>-${upg.price} ¥`
+            document.body.appendChild(button)
+        })
+        
+        setInterval(function() { idleT += 10
+            document.getElementById("yuan").textContent = `${data.yuan} ¥`
+            document.getElementById("_idle_output").textContent = 
+                `+${data._idle_output} ¥/${data._idle_rate >= 1E3 
+                    && `${data._idle_rate / 1E3}s` || data._idle_rate + "ms"}`
+
+            if (idleT >= data._idle_rate) { idleT = 0
+                data.yuan += data._idle_output
+            }
+        }, 10)
+    </script>
 </html>
+
