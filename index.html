@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+54<!DOCTYPE html>
 
 <html>
     <body>
@@ -30,9 +30,19 @@
             "yuan": 0,
             
             "_idle_output": 1,
-            "_idle_rate": 1000
+            "_idle_rate": 1000,
+
+            "upgrades": [
+                {"price": 100, "owned": [0, 100], "value": [1, "_idle_output"]}
+            ]
         }
 
+        for (let i, upg in data.upgrades) {
+            let button = document.createElement("button")
+            buttion.textContent = upg.price
+            document.appendChild(button)
+        }
+    
         setInterval(function() { idleT += 10
             document.getElementById("yuan").textContent = `${data.yuan} ¥`
             document.getElementById("_idle_output").textContent = 
