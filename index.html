@@ -58,7 +58,7 @@
 
                 if (data.yuan >= upg.price) {
                     data.yuan -= upg.price; upg.owned[0] += 1
-                    data[upg.value][1] += upg.value[0]
+                    data[upg.value[1]] += upg.value[0]
                     upg.price = Math.floor(upg.price * 1.15)
                 }
             }
