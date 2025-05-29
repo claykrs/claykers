@@ -25,7 +25,7 @@
             document.getElementById("yuan")
                 .textContent = `${data.yuan} ¥`
 
-            let idle_rate = (data._idle_rate > 1 && "s" || data._idle_rate + "ms")
+            let idle_rate = (data._idle_rate >= 1000 && "s" || data._idle_rate + "ms")
             document.getElementById("output")
                 .textContent = `${data.yuan} ¥/${idle_rate}`
 
