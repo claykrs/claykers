@@ -84,8 +84,19 @@
                 }
             })
 
-            if (idleT >= data._idle_rate) { idleT = 0
-                data.yuan += data._idle_output
+            if (idleT >= data._idle_rate) {
+                idleT = 0
+            
+                let now = Date.now()
+                if (!active_state) active_state = now
+            
+                let elapsed = now - active_state
+                let steps = Math.floor(elapsed / data._idle_rate)
+                active_state = now
+            
+                if (steps > 0) {
+                    data.yuan += steps * data._idle_output
+                }
             }
         }, 10)
     </script>
