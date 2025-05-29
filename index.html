@@ -29,9 +29,9 @@
             document.getElementById("yuan")
                 .textContent = `${data.yuan} ¥`
 
-            let idle_rate = (data._idle_rate >= 1000 && "s" || data._idle_rate + "ms")
             document.getElementById("_idle_output")
-                .textContent = `${data._idle_output} ¥/${idle_rate}`
+                .textContent = `${data._idle_output} ¥/${data._idle_rate >= 1E3 && "s"
+                                                          || data._idle_rate + "ms"}`
 
             if (idleT >= data._idle_rate) { idleT = 0
                 data.yuan += data._idle_output
