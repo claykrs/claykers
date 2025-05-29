@@ -37,7 +37,9 @@
             ]
         }
 
-        for (let i, upg in data.upgrades) {
+        for (let i in data.upgrades) {
+            let upg = data.upgrades[i]
+            
             let button = document.createElement("button")
             button.textContent = upg.price
             document.appendChild(button)
