@@ -75,6 +75,9 @@
                 button.innerHTML = `upgrade ${i+1} (${upg.owned[0]})`
                     + `<br>+${upg.value[0]} ${name(upg.value[1])}`
                       +`<br>-${upg.price} ¥`
+                if (upg.owned[0] >= upg.owned[1]) {
+                    button.disabled = true
+                }
             })
 
             if (idleT >= data._idle_rate) { idleT = 0
