@@ -3,7 +3,7 @@
 <html>
     <body>
         <h2 id="yuan">0 ¥</h2>
-        <h4 id="_idle_output">+0 ¥/</h4>
+        <h5 id="_idle_output">+0 ¥/</h5>
     </body>
 
     <style>
@@ -17,14 +17,14 @@
     </style>
 
     <script>
+        let idleT = 0
         let data = {
             "yuan": 0,
             
             "_idle_output": 1,
-            "_idle_rate": 850,
+            "_idle_rate": 1000
         }
 
-        let idleT = 0
         setInterval(function() { idleT += 10
             document.getElementById("yuan")
                 .textContent = `${data.yuan} ¥`
