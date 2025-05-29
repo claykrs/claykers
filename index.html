@@ -3,7 +3,7 @@
 <html>
     <body>
         <h2 id="yuan">0 ¥</h2>
-        <button id=""> ¥ </button>
+        <button id="submit"> +0 ¥</button>
     </body>
 
     <style>
@@ -14,12 +14,20 @@
 
     <script>
         let data = {
-            "yuan": 0}
-
-        const yuanT = document.getElementById("yuan")
-        
-        setInterval(function() {
+            "yuan": 0,
             
+            "_click_output": 1,
+            "_idle_rate": 1000,
+        }
+
+        let idleT = 0
+        setInterval(function() { idleT += 10
+            document.getElementById("yuan")
+                .textContent = `${data.yuan} ¥`
+
+            if (idleT >= data._idle_rate) { idleT = 0
+                data.yuan += data._click_output
+            }
         }, 10)
     </script>
 </html>
