@@ -44,10 +44,20 @@
 
         data.upgrades.forEach((upg, i) => {
             let button = document.createElement("button")
-            button.innerHTML = `upgrade ${i} (${upg.owned[0]})`
+            button.innerHTML = `upgrade ${i+1} (${upg.owned[0]})`
                 + `<br>+${upg.value[0]} ${name(upg.value[1])}`
                   +`<br>-${upg.price} ¥`
             document.body.appendChild(button)
+            button.onclick = function() {
+                if (upg.owned[0] >= upg.owned[1]) {
+                    return
+                }
+
+                if (data.yuan >= upg.price) {
+                    data.yuan -= upg.price; upg.owned[0] += 1
+                    data[upg.value][1] += upg.value[0]
+                }
+            }
         })
         
         setInterval(function() { idleT += 10
