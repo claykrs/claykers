@@ -39,7 +39,8 @@
 
         data.upgrades.forEach((upg, i) => {
             let button = document.createElement("button")
-            button.textContent = `Upgrade ${i}`
+            button.innerHTML = `upgrade ${i} (${upg.owned[0]})`
+                + `<br>+${upg.value[0]} yuan/ps` +`<br>-${upg.price} ¥`
             document.body.appendChild(button)
         })
         
