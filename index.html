@@ -33,7 +33,7 @@
             "_idle_rate": 1000,
 
             "upgrades": [
-                {"price": 100, "owned": [0, 100], "value": [1, "_idle_output"]}
+                {"price": 100, "owned": [0, 30], "value": [1, "_idle_output"]}
             ]
         }
 
@@ -41,12 +41,15 @@
             return (k == "_idle_output"
                     && "¥/step" || "")
         }
-
+        
         data.upgrades.forEach((upg, i) => {
             let button = document.createElement("button")
+            button.id = `upg_${i+1}`
+            
             button.innerHTML = `upgrade ${i+1} (${upg.owned[0]})`
                 + `<br>+${upg.value[0]} ${name(upg.value[1])}`
                   +`<br>-${upg.price} ¥`
+            
             document.body.appendChild(button)
             button.onclick = function() {
                 if (upg.owned[0] >= upg.owned[1]) {
@@ -56,6 +59,7 @@
                 if (data.yuan >= upg.price) {
                     data.yuan -= upg.price; upg.owned[0] += 1
                     data[upg.value][1] += upg.value[0]
+                    upg.price = Math.floor(upg.price * 1.15)
                 }
             }
         })
@@ -65,6 +69,13 @@
             document.getElementById("_idle_output").textContent = 
                 `+${data._idle_output} ¥/${data._idle_rate >= 1E3 
                     && `${data._idle_rate / 1E3}s` || data._idle_rate + "ms"}`
+
+            data.upgrades.forEach((upg, i) => {
+                let button = document.getElementById(`upg_${i+1}`)                
+                button.innerHTML = `upgrade ${i+1} (${upg.owned[0]})`
+                    + `<br>+${upg.value[0]} ${name(upg.value[1])}`
+                      +`<br>-${upg.price} ¥`
+            })
 
             if (idleT >= data._idle_rate) { idleT = 0
                 data.yuan += data._idle_output
