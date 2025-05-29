@@ -36,7 +36,7 @@
                 .textContent = `${data.yuan} ¥`
 
             document.getElementById("_idle_output")
-                .textContent = `${data._idle_output} ¥/${data._idle_rate >= 1E3 && "s"
+                .textContent = `+${data._idle_output} ¥/${data._idle_rate >= 1E3 && "s"
                                                           || data._idle_rate + "ms"}`
 
             if (idleT >= data._idle_rate) { idleT = 0
