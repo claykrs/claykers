@@ -201,18 +201,19 @@
         }
 
         function maxBuy(upg) {
-        let maxCanBuy = upg.owned[1] - upg.owned[0]
-        let affordableCount = 0;
-        let price = upg.price;
-        let totalCost = 0;
-        const mul = upg.mul || 1.15;
-
-        for (let i = 0; i < maxCanBuy; i++) {
-            if (totalCost + price > data.yuan) break;
-            totalCost += price;
-            price = Math.floor(price * mul);
-            affordableCount++;
-        }
+            let maxCanBuy = upg.owned[1] - upg.owned[0]
+            let affordableCount = 0;
+            let price = upg.price;
+            let totalCost = 0;
+            const mul = upg.mul || 1.15;
+    
+            for (let i = 0; i < maxCanBuy; i++) {
+                if (totalCost + price > data.yuan) break;
+                totalCost += price;
+                price = Math.floor(price * mul);
+                affordableCount++;
+            }
+            
             return { affordableCount, totalCost };
         }
 
