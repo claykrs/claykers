@@ -1,0 +1,17 @@
+#renminbi {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+}
+
+#renminbi-idle {
+    margin-top: 0;
+    font-weight: 400;
+
+    font-size: 1.25em;
+    font-style: italic;
+    text-align: center;
+}
