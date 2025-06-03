@@ -4,12 +4,49 @@ const template = JSON.parse($("-template").text)
 let data = localStorage.getItem("_dataStore")
 data = (data ? JSON.parse(data) : template)
 
-const F = (n) => { return n }
+const F = (n) => {
+    if (n < 1E6) 
+        return n.toLocaleString()
+
+    const suffixes = [
+        "thousand", "million",
+        "billion", "trillion"]
+
+    let value = n, i = 0
+    while (Math.abs(value) >= 1e3
+        && i < suffixes.length - 1)
+    {
+        value /= 1e3, i++
+    }
+
+    if (i === suffixes.length - 1
+        && Math.abs(value) >= 1e3)
+    { return n.toExponential(2) }
+
+    return value.toFixed(Number.isInteger(value) 
+        ? 0 : 2) + " " + suffixes[i - 1]}
 const N = (n) => Number(n).toFixed(2)
 const T = () => Date.now()
 
 const renminbi = $("renminbi")
 const renminbi_idle = $("renminbi-idle")
+
+const reset_ = $("reset-")
+let count = 0, _tick = null
+reset_.onclick = function() {
+    count++
+
+    if (count === 1) {
+        setTimeout(() => {
+            count = 0
+        }, 1.5E3)
+    } else if (count === 3) {
+        developer_mode = true
+        localStorage.setItem("_dataStore", 
+            JSON.stringify(template))
+        location.reload()
+    }
+}
 
 function text(element, v) {
     if (element.textContent === v) return
@@ -17,7 +54,11 @@ function text(element, v) {
 }
 
 let tick = T()
+let developer_mode
+
 setInterval(() => {
+    if (developer_mode) return
+
     const _renminbi = data["renminbi"]
     const renminbi_step = data["renminbi/step"]
 
@@ -25,13 +66,20 @@ setInterval(() => {
     if (u > 0) { data.renminbi += (u * renminbi_step)
         tick += (u * data.step)}
 
-    text(renminbi, (`${_renminbi} ¥`))
-    text(renminbi_idle, (`+${renminbi_step} ¥/step (${data.step}ms)`))
+    text(renminbi, (`${F(_renminbi)} ¥`))
+    text(renminbi_idle, (`+${F(renminbi_step)} ¥/step (${data.step}ms)`))
 
     localStorage.setItem("_dataStore",
         JSON.stringify(data))
-}, 100)
+}, 10)
 
-document.visibilitychange = function() {
+document.addEventListener("keydown", function (event) {
+    if (event.shiftKey && event.key.toLowerCase() === "h") {
+        reset_.style.visibility = "visible"
+        reset_.disabled = false
+    }
+})
+
+document.addEventListener("visibilitychange", function() {
     if (!document.hidden) tick = T()
-}
+})
