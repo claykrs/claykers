@@ -1,8 +1,9 @@
 ($ = n => document.getElementById(n))
 
 const template = JSON.parse($("-template").text)
-let data = localStorage.getItem("_dataStore")
-data = (data ? JSON.parse(data) : template)
+let dataStore = localStorage.getItem("_dataStore")
+dataStore = (dataStore ? JSON.parse(dataStore) : {})
+const data = { ...template, ...dataStore }
 
 const F = (n) => {
     if (n < 1E6) 
@@ -25,7 +26,7 @@ const F = (n) => {
 
     return value.toFixed(Number.isInteger(value) 
         ? 0 : 2) + " " + suffixes[i - 1]}
-const N = (n) => Number(n).toFixed(2)
+const N = (n) => Number(n.toFixed(2))
 const T = () => Date.now()
 
 const renminbi = $("renminbi")
@@ -57,17 +58,20 @@ let tick = T()
 let developer_mode
 
 setInterval(() => {
-    if (developer_mode) return
+    if (developer_mode) {
+        tick = T(); return}
 
     const _renminbi = data["renminbi"]
     const renminbi_step = data["renminbi/step"]
 
+    let mulx = N(data["renminbi/mulx"])
+
     let u = Math.floor((T() - tick) / data.step)
-    if (u > 0) { data.renminbi += (u * renminbi_step)
+    if (u > 0) { data.renminbi += (u * renminbi_step) * mulx
         tick += (u * data.step)}
 
-    text(renminbi, (`${F(_renminbi)} ¥`))
-    text(renminbi_idle, (`+${F(renminbi_step)} ¥/step (${data.step}ms)`))
+    text(renminbi, (`${F(_renminbi)} ¥ ${mulx > 1 && `(x${F(mulx)} mul)` || ""}`))
+    text(renminbi_idle, (`+${F(renminbi_step * mulx)} ¥/step (${data.step}ms)`))
 
     localStorage.setItem("_dataStore",
         JSON.stringify(data))
@@ -75,8 +79,13 @@ setInterval(() => {
 
 document.addEventListener("keydown", function (event) {
     if (event.shiftKey && event.key.toLowerCase() === "h") {
-        reset_.style.visibility = "visible"
-        reset_.disabled = false
+        developer_mode = developer_mode
+            === true ? null : true
+
+        reset_.style.visibility = 
+            (reset_.style.visibility === "visible")
+                ? "hidden" : "visible"
+        reset_.disabled = !reset_.disabled
     }
 })
 
