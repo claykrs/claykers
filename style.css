@@ -16,7 +16,7 @@
     text-align: center;
 }
 
-#reset- {
+#reset {
     font-size: 10px;
     height: 20px;
     width: 25px;
@@ -25,4 +25,23 @@
     bottom: 10px;
 
     visibility: hidden;
+}
+
+.button_1 {
+    font-size: 18px;
+    font-weight: 400;
+    font-family: serif;
+
+    height: 30px;
+    width: auto;
+
+    color: rgba(0,0,0, 0.5);
+
+    padding: 0 26px;
+    text-align: center;
+    line-height: 24px;
+    display: inline-block;
+    box-sizing: border-box;
+
+    position: fixed;
 }
