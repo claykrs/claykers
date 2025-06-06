@@ -6,7 +6,7 @@ dataStore = (dataStore ? JSON.parse(dataStore) : {})
 const data = { ...template, ...dataStore }
 
 const F = (n) => {
-    if (n < 1E6) 
+    if (n < 1e6) 
         return n.toLocaleString()
 
     const suffixes = [
@@ -32,7 +32,17 @@ const T = () => Date.now()
 const renminbi = $("renminbi")
 const renminbi_idle = $("renminbi-idle")
 
-const reset_ = $("reset-")
+const rebirth = $("rebirth")
+    rebirth.style.bottom = "20px"
+    rebirth.style.left = "50%"
+    rebirth.style.transform = "translateX(-50%)"
+const rebirth_menu = $("rebirth-menu")
+    rebirth_menu.style.bottom = "20px"
+    rebirth_menu.style.left = "57%"
+    rebirth_menu.style.padding = "0 8px"
+    rebirth_menu.style.transform = "translateX(-50%)"
+
+const reset_ = $("reset")
 let count = 0, _tick = null
 reset_.onclick = function() {
     count++
@@ -65,14 +75,48 @@ setInterval(() => {
     const renminbi_step = data["renminbi/step"]
 
     let mulx = N(data["renminbi/mulx"])
+    let mulx_threshold = data["mulx:threshold"]
+    if (mulx > mulx_threshold) mulx = mulx_threshold
+
+    let offlineL = (Date.now() - data["time"])
+    offlineL = Math.floor(offlineL / 1e3)
+    
+    if (offlineL < 5 || offlineL > 8.64e4) { offlineL = 1 } else {
+        data.renminbi += ((renminbi_step * mulx) * offlineL)
+        offlineL = 1
+    }
 
     let u = Math.floor((T() - tick) / data.step)
-    if (u > 0) { data.renminbi += (u * renminbi_step) * mulx
-        tick += (u * data.step)}
+    if (u > 0) { data.renminbi += ((u * renminbi_step)* mulx)
+        tick += (u * data.step)
+    }
 
     text(renminbi, (`${F(_renminbi)} ¥ ${mulx > 1 && `(x${F(mulx)} mul)` || ""}`))
     text(renminbi_idle, (`+${F(renminbi_step * mulx)} ¥/step (${data.step}ms)`))
+    
+    if (_renminbi >= 1e6) {
+        let yin = Math.floor(Math.log10(_renminbi / 1e6 + 1)) + 1
+        let mulx = N(Math.min(mulx_threshold, 0.1 +
+            Math.log10(_renminbi / 1e6 + 1) * 0.425))
 
+            rebirth.disabled = false
+            rebirth.style.color = "black"
+        text(rebirth, `rebirth (+${F(yin)} ☯, +${F(mulx)}x ¥)`)
+        rebirth.onclick = function() {
+            if (_renminbi < 1e6) return
+
+            data["renminbi"] = 0
+            data["has/rebirth"] = true
+
+            data["yin"] += yin
+            data["renminbi/mulx"] += mulx
+        }
+    } else {
+        text(rebirth, "1 million ¥ required")
+        rebirth.style.color = `rgba(0,0,0, 0.5)`
+        rebirth.disabled = true }
+
+    data["time"] = Date.now()
     localStorage.setItem("_dataStore",
         JSON.stringify(data))
 }, 10)
