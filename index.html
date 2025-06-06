@@ -11,18 +11,27 @@
 <body>
     <h1 id="renminbi">0 ¥</h1>
     <h3 id="renminbi-idle">+0 ¥/step (1s)</h3>
-    <button id="reset-" disabled="true">✖</button>
+
+    <button class="button_1" id="rebirth" disabled="true">1 million ¥ required</button>
+    <button class="button_1" id="rebirth-menu" disabled="true">☰</button>
 
     <div id="developer-overlay"></div>
+    <button id="reset" disabled="true">✖</button>
     <script id="-template" type="application/json">
         {
             "renminbi": 0,
             "renminbi/step": 1,
 
+            "yin": 0,
+            "yin/upg": {},
+
             "renminbi/mulx": 1,
             "mulx:threshold": 10,
 
-            "step": 1E3
+            "has/rebirth": false,
+
+            "step": 1E3,
+            "time": -1
         }
     </script>
 
