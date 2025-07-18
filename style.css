@@ -1,0 +1,116 @@
+body {
+    background-color: #000000;
+    color: #ddd;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#name {
+    font-size: 2rem;
+    font-family: 'Fredoka One', cursive;
+    font-weight: 400;
+    color: #ddd;
+    margin: 1rem 0;
+    text-align: center;
+    user-select: none;
+    text-shadow: 0 0 5px #444;
+}
+
+#description {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #999;
+    font-family: 'Fredoka One', cursive;
+    margin: 0 0 2rem 0;
+    text-align: center;
+    user-select: none;
+}
+
+
+#social {
+    font-family: 'Fredoka One', cursive;
+    font-style: italic;
+    text-align: center;
+    margin: 0 0 1rem 0;
+    user-select: none;
+}
+
+#social a {
+    display: block;
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #e1e1e1;
+    text-decoration: none;
+}
+
+#social a:hover {
+    text-decoration: underline;
+    color: #ffffff;
+}
+
+#projects-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 425px;
+}
+
+#projects-container ul li {
+    margin: 1.5rem 0;
+}
+
+#projects-container ul li a {
+    display: block;
+    text-decoration: none;
+    color: #ddd;
+    text-align: left;
+    background: #000000;
+    border: 2px solid #1a1a1a;
+    border-radius: 5px;
+    padding: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#projects-container ul li a:hover {
+    border-color: #ed7e00;
+    box-shadow: 0 0 10px #61dafb33;
+}
+
+.project-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.2rem;
+}
+
+.language-badges {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: max-content;
+    display: flex;
+    gap: 6px;
+}
+
+.language-badge {
+    background-color: #444;
+    color: #ddd;
+    font-size: 0.7rem;
+    padding: 2px 5px;
+    border-radius: 2px;
+    font-family: monospace;
+    user-select: none;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.project-description {
+    font-size: 1rem;
+    color: #999;
+    font-family: 'Fredoka One', cursive;
+}
